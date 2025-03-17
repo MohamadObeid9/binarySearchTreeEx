@@ -16,11 +16,12 @@ export const buildTree = (
   rootElement.right = buildTree(arr, middle + 1, end);
   return rootElement;
 };
-const array = [65, 69, 37, 54, 7, 40, 15, 100, 49, 52];
-console.log(sortArray(array));
+//   TEST
+// const array = [65, 69, 37, 54, 7, 40, 15, 100, 49, 52];
+// console.log(sortArray(array));
 //[7, 15, 37, 40, 49, 52, 54, 65, 69, 100];
-prettyPrint(buildTree(array, 0, array.length));
-//  │           ┌── undefined
+// prettyPrint(buildTree(array, 0, array.length));
+//  │
 //  │       ┌── 100
 //  │   ┌── 69
 //  │   │   │   ┌── 65
