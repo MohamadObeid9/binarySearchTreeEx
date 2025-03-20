@@ -65,20 +65,28 @@ export class Tree {
   levelOrder(
     callback: Function,
     root: Node | null = this.root,
-    level: number = 0,
     arr: number[][] = []
   ) {
-    if (!callback) throw new Error("A callback function is required");
-    if (!root) return;
-    if (arr.length <= level) arr.push([]);
-    if (root.data) arr[level].push(root.data);
-    this.levelOrder(callback, root.left, level + 1, arr);
-    this.levelOrder(callback, root.right, level + 1, arr);
-    if (level === 0) {
-      arr.forEach((levelArr) =>
-        levelArr.forEach((element) => callback(element))
-      );
+    if (!root || !root.data) return;
+    const queue: number[][] = [[root.data, 0]];
+    while (queue.length > 0) {
+      const shifted = queue.shift();
+      if (!shifted) return;
+      let [firstElement, level] = shifted;
+      if (!arr[level]) arr[level] = [];
+      if (!firstElement) return;
+      root = this.find(firstElement);
+      if (!root) return;
+      arr[level].push(firstElement);
+      level++;
+      if (root.left && root.left.data) {
+        queue.push([root.left.data, level]);
+      }
+      if (root.right && root.right.data) {
+        queue.push([root.right.data, level]);
+      }
     }
+    arr.forEach((levelArr) => levelArr.forEach((element) => callback(element)));
     return arr;
   }
 
